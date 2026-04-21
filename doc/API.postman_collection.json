@@ -16,7 +16,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/product",
+              "raw": "http://localhost:8080/api/product?page=1&pageSize=10",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -25,6 +25,16 @@
               "path": [
                 "api",
                 "product"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
               ]
             }
           },

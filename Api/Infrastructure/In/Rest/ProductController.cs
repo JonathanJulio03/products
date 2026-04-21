@@ -12,12 +12,11 @@ namespace Products.Api.Infrastructure.In.Rest;
 public class ProductController(IProductUseCase productUseCase) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        var products = await productUseCase.GetAllAsync();
+        var pagedData = await productUseCase.GetAllAsync(page, pageSize);
         
-        var response = products.Adapt<IEnumerable<ProductResponseDto>>();
-        return Ok(response);
+        return Ok(pagedData);
     }
 
     [HttpGet("{id}")]

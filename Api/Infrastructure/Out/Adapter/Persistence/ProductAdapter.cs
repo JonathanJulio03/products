@@ -8,11 +8,23 @@ namespace Products.Api.Infrastructure.Out.Adapter.Persistence;
 
 public class ProductAdapter(IDbConnectionFactory connectionFactory) : IProductPort
 {
-    public Task<IEnumerable<Product>> GetAllAsync() =>
-        ExecuteAsync("Technical error while trying to retrieve the product list.",
-            connection => connection.QueryAsync<Product>(
-                "get_all_products",
-                commandType: CommandType.StoredProcedure));
+    public Task<PagedResult<Product>> GetAllAsync(int page, int pageSize) =>
+        ExecuteAsync("Technical error while trying to retrieve the paginated product list.",
+            async connection =>
+            {
+                var parameters = new { PageNumber = page, PageSize = pageSize };
+
+                using var multi = await connection.QueryMultipleAsync(
+                    "get_all_products",
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                var totalRecords = await multi.ReadFirstAsync<int>();
+                var items = await multi.ReadAsync<Product>();
+
+                return new PagedResult<Product>(items, totalRecords, page, pageSize);
+            });
 
     public Task<Product?> GetByIdAsync(int id) =>
         ExecuteAsync($"Technical error while trying to retrieve the product with ID {id}.",
