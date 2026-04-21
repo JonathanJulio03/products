@@ -12,9 +12,9 @@ public class ProductService(IProductPort productPort) : IProductUseCase
         return await productPort.CreateAsync(product);
     }
 
-    public async Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<PagedResult<Product>> GetAllAsync(int page, int pageSize)
     {
-        return await productPort.GetAllAsync();
+        return await productPort.GetAllAsync(page, pageSize);
     }
 
     public async Task<Product?> GetByIdAsync(int id)
