@@ -41,6 +41,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
