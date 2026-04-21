@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd!
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./Scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product_net_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=SCITest;User Id=sa;Password=YourStrong@Passw0rd!;TrustServerCertificate=True;Pooling=true;Min Pool Size=10;Max Pool Size=100;Connection Timeout=30;
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
