@@ -47,6 +47,7 @@ To spin up the environment and initialize the database, execute:
 1. **Sql:**
    ```bash
    Execute folder Scripts/init-db.sql
+   Execute folder Scripts/alter-db.sql
 2. **Start:**
    ```bash
    dotnet run
