@@ -1,10 +1,11 @@
-﻿using Products.Api.Application.Port.In;
-using Products.Api.Application.Port.Out;
-using Products.Api.Application.Service;
-using Products.Api.Infrastructure.Middleware;
-using Products.Api.Infrastructure.Out.Adapter.External;
-using Products.Api.Infrastructure.Out.Adapter.Persistence;
-using Products.Api.Infrastructure.Out.Adapter.Persistence.Data;
+﻿using Products.Src.Application.Port.In;
+using Products.Src.Application.Port.Out;
+using Products.Src.Application.Service;
+using Products.Src.Infrastructure.Middleware;
+using Products.Src.Infrastructure.Out.Adapter.External;
+using Products.Src.Infrastructure.Out.Adapter.Persistence;
+using Products.Src.Infrastructure.Out.Adapter.Persistence.Data;
+using System.Diagnostics.CodeAnalysis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,3 +57,5 @@ app.UseExceptionHandler();
 app.MapControllers();
 
 await app.RunAsync();
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+public partial class Program { }
