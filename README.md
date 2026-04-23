@@ -47,6 +47,7 @@ To spin up the environment and initialize the database, execute:
 1. **Sql:**
    ```bash
    Execute folder Scripts/init-db.sql
+   Execute folder Scripts/alter-db.sql
 2. **Start:**
    ```bash
    dotnet run
@@ -63,3 +64,15 @@ To spin up the environment and initialize the database, execute:
 2. **Alter the database schema:**
    ```bash
    MSYS_NO_PATHCONV=1 docker exec -it sqlserver_db /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd!' -C -i /docker-entrypoint-alterdb.d/alter-db.sql
+
+### Run Test
+
+1. **Run Coverage:**
+   ```bash
+   dotnet test --collect:"XPlat Code Coverage"
+
+2. **Coverage Report:**
+   ```bash
+   reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"TestResults/coveragereport" -reporttypes:Html
+
+   Open index.html
